@@ -1,0 +1,35 @@
+name: Run Unit Tests
+
+# Controls when the workflow is triggered
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+# A workflow run is made up of one or more jobs
+jobs:
+  # This workflow contains a single job called "test"
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Sets up the Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Installs project dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Runs the unit tests
+      - name: Run Tests
+        run: npm test
